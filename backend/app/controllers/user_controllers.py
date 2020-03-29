@@ -22,8 +22,8 @@ def create(data):
     # Encrypting password
     password = password_encrypt(password)
 
+    cur = get_db().cursor()
     try:
-        cur = get_db().cursor()
         cur.execute(f"INSERT INTO users(username, email, password, gender)"
                     f"VALUES ('{username}','{email}','{password}',{gender})")
         get_db().commit()
@@ -33,3 +33,20 @@ def create(data):
         abort(400)
 
     return jsonify({'result': True}), 201
+
+
+def delete(user_id, data):
+    password = password_encrypt(data['password'])
+
+    cur = get_db().cursor()
+
+    cur.execute(f"SELECT * FROM users WHERE username='{user_id}' AND password='{password}'")
+    user = cur.fetchone()
+    if user is None:
+        abort(400)
+
+    cur.execute(f"DELETE FROM users WHERE username='{user_id}'")
+    get_db().commit()
+    cur.close()
+
+    return jsonify({'result': True})

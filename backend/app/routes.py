@@ -1,8 +1,15 @@
+from flask import request
+
 from app import app
 
-from app.controllers import user_controllers
+from app.controllers import user_controllers as users
 
 
-@app.route('/')
+@app.route('/users', methods=['GET'])
 def index():
-    return user_controllers.hello_world()
+    return users.index()
+
+
+@app.route('/users', methods=['POST'])
+def create():
+    return users.create(request.json)

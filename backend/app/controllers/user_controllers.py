@@ -1,7 +1,6 @@
-import hashlib
-
 from app.database.connection import get_db
 from flask import jsonify, abort
+from app.utils.passwordEncrypt import password_encrypt
 
 
 def index():
@@ -21,8 +20,7 @@ def create(data):
     gender = data['gender']
 
     # Encrypting password
-    hash_object = hashlib.md5(password.encode())
-    password = hash_object.hexdigest()
+    password = password_encrypt(password)
 
     try:
         cur = get_db().cursor()

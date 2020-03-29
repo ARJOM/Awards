@@ -1,20 +1,16 @@
-from flask import request
+from flask import request, abort
 
 from app import app
 
 from app.controllers import user_controllers as users
 
 
-@app.route('/users', methods=['GET'])
-def users_index():
-    return users.index()
-
-
-@app.route('/users', methods=['POST'])
-def users_create():
-    return users.create(request.json)
-
-
-@app.route('/users', methods=['DELETE'])
-def users_delete():
-    return users.delete(request.headers['authorization'], request.json)
+@app.route('/users', methods=['GET', 'POST', 'DELETE'])
+def users():
+    if request.method == 'GET':
+        return users.index()
+    elif request.method == 'POST':
+        return users.create(request.json)
+    elif request.method == 'DELETE':
+        return users.delete(request.headers['authorization'], request.json)
+    abort(405)

@@ -4,10 +4,11 @@ from app import app
 
 from app.controllers import user_controllers as users
 from app.controllers import gender_controllers as genders
+from app.controllers import types_controllers as types
 
 
 @app.route('/users', methods=['GET', 'POST', 'DELETE'])
-def user():
+def users_route():
     if request.method == 'GET':
         return users.index()
     elif request.method == 'POST':
@@ -18,9 +19,22 @@ def user():
 
 
 @app.route('/genders', methods=['GET', 'POST'])
-def gender():
+def genders_route():
     if request.method == 'GET':
         return genders.index()
     elif request.method == 'POST':
         return genders.create(request.json)
     abort(405)
+
+
+@app.route('/types', methods=['GET', 'POST'])
+def types_route():
+    if request.method == 'GET':
+        return types.index()
+    elif request.method == 'POST':
+        return types.create(request.json)
+
+
+@app.route('/types/<int:type_id>', methods=['DELETE'])
+def type_delete(type_id):
+    return types.delete(type_id)

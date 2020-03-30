@@ -49,14 +49,19 @@ def photos_route():
         return photos.create(request.headers['authorization'], request.json)
 
 
-@app.route('photos/<int:type_id>', methods=['GET'])
+@app.route('/photos/<int:type_id>', methods=['GET'])
 def photo_type(type_id):
     return photos.list_by_type(type_id)
 
 
-@app.route('photos/<int:type_id>/<int:gender_id>', methods=['GET'])
+@app.route('/photos/<int:type_id>/<int:gender_id>', methods=['GET'])
 def photo_type_gender(type_id, gender_id):
     return photos.list_by_type_and_gender(type_id, gender_id)
+
+
+@app.route('/photos/<int:photo_id>', methods=['GET'])
+def photo_detail(photo_id):
+    return photos.detail(photo_id)
 
 
 @app.route('/photos/<int:photo_id>', methods=['DELETE'])

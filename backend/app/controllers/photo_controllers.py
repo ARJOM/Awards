@@ -46,6 +46,15 @@ def create(user_id, data):
     return jsonify({'result': True}), 201
 
 
+def detail(photo_id):
+    cur = get_db().cursor()
+    cur.execute(f"SELECT * FROM photos WHERE id={photo_id}")
+    photo = cur.fetchone()
+    cur.close()
+
+    return jsonify(photo)
+
+
 def delete(user_id, photo_id):
     cur = get_db().cursor()
 

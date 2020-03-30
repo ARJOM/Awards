@@ -1,0 +1,60 @@
+.photo-container {
+    width: 100%;
+    max-width: 1120px;
+    height: 100vh;
+    margin: 0 auto;
+
+    display: flex;
+    justify-content: center;
+}
+
+.photo-container section.form {
+    width: 100%;
+    max-width: 350px;
+}
+
+.photo-container section.form form {
+    margin-top: 100px;
+}
+
+.photo-container section.form form h1 {
+    font-size: 32px;
+    margin-bottom: 32px;
+}
+.photo-container section.form  {
+    margin-top: 8px;
+}
+
+.photo-container select{
+    width: 100%;
+    height: 60px;
+    padding: 0 12px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    outline: 0;
+    transition: .2s;
+    font-size: 16px;
+    background: none;
+}
+
+.photo-container input[type='file'] {
+    display: none;
+}
+
+.photo-container .new-file{
+    width: 100%;
+    height: 60px;
+    color: #333333;
+    border: 1px solid #dcdce6;
+    border-radius: 8px;
+    margin-top: 14px;
+    padding: 0 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.photo-container .new-file:hover {
+    cursor: pointer;
+}

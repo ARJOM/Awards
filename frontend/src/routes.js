@@ -7,6 +7,7 @@ import Profile from "./pages/Profile";
 import Home from "./pages/Home";
 import Category from "./pages/Category";
 import Detail from "./pages/Detail";
+import Photo from "./pages/Photo";
 
 export default function Routes() {
     return(
@@ -18,6 +19,7 @@ export default function Routes() {
                 <Route path="/home" component={Home}/>
                 <Route path="/category" component={Category}/>
                 <Route path="/detail" component={Detail} />
+                <Route path="/photo" component={Photo} />
             </Switch>
         </BrowserRouter>
     )

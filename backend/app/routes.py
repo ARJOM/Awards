@@ -62,3 +62,8 @@ def photo_type_gender(type_id, gender_id):
 @app.route('/photos/<int:photo_id>', methods=['DELETE'])
 def photo_delete(photo_id):
     return photos.delete(request.headers['authorization'], photo_id)
+
+
+@app.route('/profile/<string:user_id>', methods=['GET'])
+def profile(user_id):
+    return photos.profile(user_id)

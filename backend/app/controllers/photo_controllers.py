@@ -1,23 +1,35 @@
 from app.database.connection import get_db
-from flask import jsonify, abort
+from flask import jsonify, abort, make_response
 
 
 def index():
     cur = get_db().cursor()
     cur.execute("SELECT * FROM photos")
     photos = cur.fetchall()
+
+    cur.execute("SELECT count(*) as total FROM photos")
+    headers = cur.fetchone()['total']
     cur.close()
 
-    return jsonify(photos)
+    response = make_response(jsonify(photos))
+    response.headers["X-Total-Count"] = headers
+
+    return response
 
 
 def list_by_type(type_id):
     cur = get_db().cursor()
     cur.execute(f"SELECT * FROM photos WHERE type={type_id}")
     photos = cur.fetchall()
+
+    cur.execute(f"SELECT count(*) as total FROM photos WHERE type={type_id}")
+    headers = cur.fetchone()['total']
     cur.close()
 
-    return jsonify(photos)
+    response = make_response(jsonify(photos))
+    response.headers["X-Total-Count"] = headers
+
+    return response
 
 
 def list_by_type_and_gender(type_id, gender_id):
@@ -26,9 +38,16 @@ def list_by_type_and_gender(type_id, gender_id):
                 f"FROM photos p, users u "
                 f"WHERE p.username=u.username AND p.type={type_id} AND u.gender={gender_id}")
     photos = cur.fetchall()
+
+    cur.execute(f"SELECT count(*) as total FROM photos p, users u "
+                f"WHERE p.username=u.username AND p.type={type_id} AND u.gender={gender_id}")
+    headers = cur.fetchone()['total']
     cur.close()
 
-    return jsonify(photos)
+    response = make_response(jsonify(photos))
+    response.headers["X-Total-Count"] = headers
+
+    return response
 
 
 def create(user_id, data):

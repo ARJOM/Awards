@@ -20,6 +20,23 @@ export default function Register() {
                     <input placeholder="Nome de usuario"/>
                     <input placeholder="E-mail"/>
                     <input placeholder="Senha"/>
+                    <label>
+                        <input
+                            type="radio"
+                            name="gender"
+                            value={1}
+                            checked={true}
+                        />
+                        Masculino
+                    </label>
+                    <label>
+                        <input
+                            type="radio"
+                            name="gender"
+                            value={2}
+                        />
+                        Feminino
+                    </label>
 
                     <button className="button">Cadastrar</button>
                 </form>

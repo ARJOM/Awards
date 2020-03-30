@@ -14,7 +14,7 @@ body{
 }
 
 
-input, button, textarea {
+input, button, textarea, label {
     font: 400 18px Roboto, sans-serif;
 }
 
@@ -29,6 +29,11 @@ form input {
     border: 1px solid #dcdce6;
     border-radius: 8px;
     padding: 0 24px;
+}
+
+form input[type=radio]{
+    width: 20%;
+    height: 20px;
 }
 
 .button {

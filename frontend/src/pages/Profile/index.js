@@ -12,7 +12,7 @@ export default function Profile() {
                 {/*Logo*/}
                 <span>Bem vindo(a), username</span>
 
-                <Link className="button" to="/incidents/new">Cadastrar nova foto</Link>
+                <Link className="button" to="/photo">Cadastrar nova foto</Link>
                 <button onClick={() => {}} type="button">
                     <FiPower size={18} color="#E02041"/>
                 </button>
@@ -22,18 +22,24 @@ export default function Profile() {
 
             <div className="profile-photos">
                 <div className="photo">
-                    <Link to="/photo/id">
+                    <Link to="/detail">
                         <img src={smile}  width={337} alt="Foto"/>
                     </Link>
                 </div>
                 <div className="photo">
-                    <img src={smile}  width={337} alt="Foto"/>
+                    <Link to="/detail">
+                        <img src={smile}  width={337} alt="Foto"/>
+                    </Link>
                 </div>
                 <div className="photo">
-                    <img src={smile}  width={337} alt="Foto"/>
+                    <Link to="/detail">
+                        <img src={smile}  width={337} alt="Foto"/>
+                    </Link>
                 </div>
                 <div className="photo">
-                    <img src={smile}  width={337} alt="Foto"/>
+                    <Link to="/detail">
+                        <img src={smile}  width={337} alt="Foto"/>
+                    </Link>
                 </div>
             </div>
         </div>

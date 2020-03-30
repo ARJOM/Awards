@@ -12,7 +12,7 @@ export default function Category() {
                 {/*Logo*/}
                 <span>Bem vindo(a), username</span>
 
-                <Link className="button" to="/incidents/new">+</Link>
+                <Link className="button" to="/photo">Cadastrar nova foto</Link>
                 <button onClick={() => {}} type="button">
                     <FiPower size={18} color="#E02041"/>
                 </button>
@@ -22,21 +22,21 @@ export default function Category() {
 
             <ul>
                 <li>
-                    <Link to="/categoria/id">
+                    <Link to="/detail">
                         <strong>Username</strong>
                     </Link>
                     <img src={smile} width={900} alt="category name"/>
                     <Rate/>
                 </li>
                 <li>
-                    <Link to="/categoria/id">
+                    <Link to="/detail">
                         <strong>Username</strong>
                     </Link>
                     <img src={smile} width={900} alt="category name"/>
                     <Rate/>
                 </li>
                 <li>
-                    <Link to="/categoria/id">
+                    <Link to="/detail">
                         <strong>Username</strong>
                     </Link>
                     <img src={smile} width={900} alt="category name"/>

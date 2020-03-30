@@ -11,7 +11,7 @@ export default function Detail() {
                 {/*Logo*/}
                 <span>Bem vindo(a), username</span>
 
-                <Link className="button" to="/incidents/new">+</Link>
+                <Link className="button" to="/photo">Cadastrar nova foto</Link>
                 <button onClick={() => {}} type="button">
                     <FiPower size={18} color="#E02041"/>
                 </button>

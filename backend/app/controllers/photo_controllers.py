@@ -33,11 +33,12 @@ def list_by_type_and_gender(type_id, gender_id):
 
 def create(user_id, data):
     photo = data['photo']
-    photo_type = data['type'],
+    photo_type = data['type']
 
     cur = get_db().cursor()
     try:
         cur.execute(f"INSERT INTO photos(username, photo, type) VALUES('{user_id}','{photo}',{photo_type})")
+        get_db().commit()
         cur.close()
     except:
         cur.close()

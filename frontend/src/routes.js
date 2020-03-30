@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Home from "./pages/Home";
+import Category from "./pages/Category";
 
 export default function Routes() {
     return(
@@ -14,6 +15,7 @@ export default function Routes() {
                 <Route path="/register" component={Register}/>
                 <Route path="/profile" component={Profile}/>
                 <Route path="/home" component={Home}/>
+                <Route path="/category" component={Category}/>
             </Switch>
         </BrowserRouter>
     )

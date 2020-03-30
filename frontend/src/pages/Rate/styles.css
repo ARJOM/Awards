@@ -1,0 +1,16 @@
+.rate-container {
+    display: flex;
+    justify-content: center;
+}
+
+.rate-form {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.rate-form input[type=radio]{
+    width: 150%;
+    height: 20px;
+}

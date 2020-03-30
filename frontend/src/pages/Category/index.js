@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import {FiPower} from "react-icons/all";
 import smile from "../../assets/sorriso.jpeg";
 import './styles.css';
+import Rate from "../Rate";
 
 export default function Category() {
     return(
@@ -24,19 +25,22 @@ export default function Category() {
                     <Link to="/categoria/id">
                         <strong>Username</strong>
                     </Link>
-                    <img src={smile} width={1000} alt="category name"/>
+                    <img src={smile} width={900} alt="category name"/>
+                    <Rate/>
                 </li>
                 <li>
                     <Link to="/categoria/id">
                         <strong>Username</strong>
                     </Link>
-                    <img src={smile} width={1000} alt="category name"/>
+                    <img src={smile} width={900} alt="category name"/>
+                    <Rate/>
                 </li>
                 <li>
                     <Link to="/categoria/id">
                         <strong>Username</strong>
                     </Link>
-                    <img src={smile} width={1000} alt="category name"/>
+                    <img src={smile} width={900} alt="category name"/>
+                    <Rate/>
                 </li>
             </ul>
 

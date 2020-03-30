@@ -96,7 +96,7 @@ def delete(user_id, photo_id):
 
 def profile(user_id):
     cur = get_db().cursor()
-    cur.execute("SELECT * FROM photos WHERE username='{user_id}'")
+    cur.execute(f"SELECT * FROM photos WHERE username='{user_id}'")
     photos = cur.fetchall()
     cur.close()
 

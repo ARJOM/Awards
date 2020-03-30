@@ -59,7 +59,7 @@ def photo_type_gender(type_id, gender_id):
     return photos.list_by_type_and_gender(type_id, gender_id)
 
 
-@app.route('/photos/<int:photo_id>', methods=['GET'])
+@app.route('/photos/detail/<int:photo_id>', methods=['GET'])
 def photo_detail(photo_id):
     return photos.detail(photo_id)
 

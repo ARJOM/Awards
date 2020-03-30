@@ -33,4 +33,17 @@ CREATE TABLE ratings(
     FOREIGN KEY (appraiser) REFERENCES users(username),
     FOREIGN KEY (photo) REFERENCES photos(id),
     PRIMARY KEY (appraiser, photo)
-)
+);
+
+CREATE VIEW photo_info AS
+    SELECT p.id, p.username, p.photo, p.type, count(*) as total, avg(r.grade) as grade
+    FROM photos p, ratings r
+    WHERE p.id=r.photo
+    GROUP BY p.id, p.username, p.photo, p.type;
+
+CREATE VIEW photo_most AS
+    SELECT p.id, r.grade as evaluation, count(r.grade) as qt_evaluation
+    FROM photos p, ratings r
+    WHERE p.id=r.photo
+    GROUP BY p.id, r.grade
+    ORDER BY count(r.grade) DESC

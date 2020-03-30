@@ -68,7 +68,7 @@ def create(user_id, data):
 
 def detail(photo_id):
     cur = get_db().cursor()
-    cur.execute(f"SELECT * FROM photos WHERE id={photo_id}")
+    cur.execute(f"SELECT * FROM photo_info pi, photo_most pm WHERE pi.id={photo_id} AND pi.id=pm.id")
     photo = cur.fetchone()
     cur.close()
 

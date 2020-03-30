@@ -6,6 +6,7 @@ from app.controllers import user_controllers as users
 from app.controllers import gender_controllers as genders
 from app.controllers import types_controllers as types
 from app.controllers import photo_controllers as photos
+from app.controllers import rating_controllers as ratings
 
 
 @app.route('/users', methods=['GET', 'POST', 'DELETE'])
@@ -72,3 +73,11 @@ def photo_delete(photo_id):
 @app.route('/profile/<string:user_id>', methods=['GET'])
 def profile(user_id):
     return photos.profile(user_id)
+
+
+@app.route('/ratings', methods=['GET', 'POST'])
+def rating():
+    if request.method == 'GET':
+        return ratings.index()
+    elif request.method == 'POST':
+        return ratings.create(request.headers['authorization'], request.json)

@@ -20,6 +20,13 @@
 .logon-container section.form form h1 {
     font-size: 32px;
     margin-bottom: 32px;
+    display: flex;
+    justify-content: center;
+}
+
+.logon-container section.form form a{
+    display: flex;
+    justify-content: center;
 }
 .logon-container section.form input {
     margin-top: 8px;

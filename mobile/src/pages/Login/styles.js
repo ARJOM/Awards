@@ -22,6 +22,7 @@ export default StyleSheet.create({
 
     confirmButton: {
         width: '100%',
+        marginTop: 10,
     },
 
     registerButton: {

@@ -15,8 +15,8 @@ export default function Login() {
     return(
         <Block style={styles.container}>
             <Text style={styles.title}>Faça seu login</Text>
-            <Input style={styles.loginInput} placeholder="Username"/>
-            <Input style={styles.loginInput} placeholder="Password" password viewPass />
+            <Input style={styles.loginInput} placeholder="Nome de usuário"/>
+            <Input style={styles.loginInput} placeholder="Senha" password viewPass />
             <Button style={styles.confirmButton} color="#43a047">Log In</Button>
             <TouchableOpacity
                 style={styles.registerButton}

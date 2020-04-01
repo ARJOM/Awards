@@ -2,11 +2,17 @@ from flask import request, abort
 
 from app import app
 
+from app.controllers import session_controllers as sessions
 from app.controllers import user_controllers as users
 from app.controllers import gender_controllers as genders
 from app.controllers import types_controllers as types
 from app.controllers import photo_controllers as photos
 from app.controllers import rating_controllers as ratings
+
+
+@app.route('/session', methods=['POST'])
+def session():
+    return sessions.session(request.json)
 
 
 @app.route('/users', methods=['GET', 'POST', 'DELETE'])

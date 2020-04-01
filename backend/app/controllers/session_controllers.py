@@ -1,6 +1,9 @@
+import datetime
+from app import app
 from app.database.connection import get_db
 from flask import jsonify, abort
 from app.utils.passwordEncrypt import password_encrypt
+import jwt
 
 
 def session(data):
@@ -15,4 +18,6 @@ def session(data):
     if user is None:
         abort(400)
 
-    return jsonify({'result': True})
+    token = jwt.encode({'user': username, 'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=24)}, app.config['SECRET_KEY'])
+
+    return jsonify({'token': token.decode('UTF-8')})

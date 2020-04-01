@@ -1,22 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FiPower } from "react-icons/all";
 import './styles.css'
 
 import smile from '../../assets/sorriso.jpeg'
+import Header from "../Header";
 
 export default function Profile() {
     return (
         <div className="profile-container">
-            <header>
-                {/*Logo*/}
-                <span>Bem vindo(a), username</span>
-
-                <Link className="button" to="/photo">Cadastrar nova foto</Link>
-                <button onClick={() => {}} type="button">
-                    <FiPower size={18} color="#E02041"/>
-                </button>
-            </header>
+            <Header/>
 
             <h1>Suas fotos</h1>
 

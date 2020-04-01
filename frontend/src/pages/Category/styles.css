@@ -5,36 +5,6 @@
     margin: 32px auto;
 }
 
-.category-container header {
-    display: flex;
-    align-items: center;
-}
-
-.category-container header span {
-    font-size: 20px;
-    margin-left: 24px;
-}
-
-.category-container header a {
-    width: 260px;
-    margin-left: auto;
-    margin-top: 0;
-}
-
-.category-container header button {
-    height: 60px;
-    width: 60px;
-    border-radius: 4px;
-    border: 1px solid #dcdce6;
-    background: transparent;
-    margin-left: 16px;
-    transition: border-color 0.2s;
-}
-
-.category-container header button:hover {
-    border-color: #999999;
-}
-
 .category-container h1 {
     display: flex;
     flex-wrap: wrap;

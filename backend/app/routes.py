@@ -81,3 +81,13 @@ def rating():
         return ratings.index()
     elif request.method == 'POST':
         return ratings.create(request.headers['authorization'], request.json)
+
+
+@app.route('/rated', methods=['get'])
+def rated():
+    return photos.rated(request.headers['authorization'])
+
+
+@app.route('/rated/<int:type_id>', methods=['GET'])
+def rated_type(type_id):
+    return photos.rated_by_category(request.headers['authorization'], type_id)

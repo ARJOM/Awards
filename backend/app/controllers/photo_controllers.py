@@ -98,6 +98,42 @@ def profile(user_id):
     cur = get_db().cursor()
     cur.execute(f"SELECT * FROM photos WHERE username='{user_id}'")
     photos = cur.fetchall()
+
+    cur.execute(f"SELECT count(*) as total FROM photos WHERE username='{user_id}'")
+    headers = cur.fetchone()['total']
     cur.close()
 
-    return jsonify(photos)
+    response = make_response(jsonify(photos))
+    response.headers["X-Total-Count"] = headers
+
+    return response
+
+
+def rated(user_id):
+    cur = get_db().cursor()
+    cur.execute(f"SELECT * FROM photos WHERE id IN (SELECT photo FROM ratings WHERE appraiser='{user_id}')")
+    photos = cur.fetchall()
+
+    cur.execute(f"SELECT count(*) as total FROM photos WHERE id IN (SELECT photo FROM ratings WHERE appraiser='{user_id}')")
+    headers = cur.fetchone()['total']
+    cur.close()
+
+    response = make_response(jsonify(photos))
+    response.headers["X-Total-Count"] = headers
+
+    return response
+
+
+def rated_by_category(user_id, type_id):
+    cur = get_db().cursor()
+    cur.execute(f"SELECT * FROM photos WHERE id IN (SELECT photo FROM ratings WHERE appraiser='{user_id}') AND type='{type_id}'")
+    photos = cur.fetchall()
+
+    cur.execute(f"SELECT count(*) as total FROM photos WHERE id IN (SELECT photo FROM ratings WHERE appraiser='{user_id}') AND type='{type_id}'")
+    headers = cur.fetchone()['total']
+    cur.close()
+
+    response = make_response(jsonify(photos))
+    response.headers["X-Total-Count"] = headers
+
+    return response

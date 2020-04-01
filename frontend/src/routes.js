@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Category from "./pages/Category";
 import Detail from "./pages/Detail";
 import Photo from "./pages/Photo";
+import PrivateRoute from "./utils/PrivateRoute";
 
 export default function Routes() {
     return(
@@ -15,11 +16,11 @@ export default function Routes() {
             <Switch>
                 <Route path="/" exact component={Login}/>
                 <Route path="/register" component={Register}/>
-                <Route path="/profile" component={Profile}/>
-                <Route path="/home" component={Home}/>
-                <Route path="/category" component={Category}/>
-                <Route path="/detail" component={Detail} />
-                <Route path="/photo" component={Photo} />
+                <PrivateRoute path="/profile" component={Profile}/>
+                <PrivateRoute path="/home" component={Home}/>
+                <PrivateRoute path="/category" component={Category}/>
+                <PrivateRoute path="/detail" component={Detail} />
+                <PrivateRoute path="/photo" component={Photo} />
             </Switch>
         </BrowserRouter>
     )

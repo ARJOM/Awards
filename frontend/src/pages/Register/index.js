@@ -13,6 +13,7 @@ export default function Register() {
     const onSubmit = async data => {
         try {
             await api.post('users', data);
+            alert("Cadastro realizado com sucesso");
             history.push('/');
         } catch (e) {
             alert("Nome de usuário ou email já cadastrado")

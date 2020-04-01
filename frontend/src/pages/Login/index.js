@@ -12,12 +12,11 @@ export default function Login() {
 
     const onSubmit = async data => {
         try {
-            console.log(data);
             const response = await api.post('session', data);
-            if (response.data.result){
-
-                history.push('/home');
-            }
+            localStorage.setItem('token', response.data.token);
+            localStorage.setItem('username', data['username']);
+            alert("Bem vindo(a)");
+            history.push('/home');
         } catch (e) {
             alert("Nome de usuário ou senha incorretos")
         }

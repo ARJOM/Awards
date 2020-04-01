@@ -1,8 +1,24 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { useForm } from 'react-hook-form';
+
+import api from "../../services/api";
 import './styles.css'
 
 export default function Register() {
+    const { register, handleSubmit } = useForm();
+
+    const history = useHistory();
+
+    const onSubmit = async data => {
+        try {
+            await api.post('users', data);
+            history.push('/');
+        } catch (e) {
+            alert("Nome de usuário ou email já cadastrado")
+        }
+    };
+
     return(
         <div className="register-container">
             <div className="content">
@@ -16,16 +32,31 @@ export default function Register() {
                     </Link>
                 </section>
 
-                <form>
-                    <input placeholder="Nome de usuario"/>
-                    <input placeholder="E-mail"/>
-                    <input placeholder="Senha"/>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <input
+                        placeholder="Nome de usuario"
+                        name="username"
+                        ref={register({required: true})}
+                    />
+                    <input
+                        placeholder="E-mail"
+                        name="email"
+                        type="email"
+                        ref={register({required: true})}
+                    />
+                    <input
+                        placeholder="Senha"
+                        name="password"
+                        type="password"
+                        ref={register({required: true})}
+                    />
                     <label>
                         <input
                             type="radio"
                             name="gender"
                             value={1}
-                            checked={true}
+                            defaultChecked={true}
+                            ref={register}
                         />
                         Masculino
                     </label>
@@ -34,6 +65,7 @@ export default function Register() {
                             type="radio"
                             name="gender"
                             value={2}
+                            ref={register}
                         />
                         Feminino
                     </label>

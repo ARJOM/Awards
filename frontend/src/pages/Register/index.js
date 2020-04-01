@@ -1,9 +1,10 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import {Link, Redirect, useHistory} from "react-router-dom";
 import { useForm } from 'react-hook-form';
 
 import api from "../../services/api";
 import './styles.css'
+import {isAuthenticated} from "../../utils/auth";
 
 export default function Register() {
     const { register, handleSubmit } = useForm();
@@ -20,6 +21,12 @@ export default function Register() {
         }
     };
 
+
+    if (isAuthenticated()){
+        return(
+            <Redirect to="/profile" />
+        )
+    }
     return(
         <div className="register-container">
             <div className="content">

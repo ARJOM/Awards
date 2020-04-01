@@ -1,5 +1,6 @@
 import React from "react";
-import {Link, useHistory} from "react-router-dom";
+import {Link, Redirect, useHistory} from "react-router-dom";
+import {isAuthenticated} from "../../utils/auth";
 import './styles.css'
 import {useForm} from "react-hook-form";
 import api from "../../services/api";
@@ -21,6 +22,12 @@ export default function Login() {
             alert("Nome de usuário ou senha incorretos")
         }
     };
+
+    if (isAuthenticated()){
+        return(
+            <Redirect to="/profile" />
+        )
+    }
     return(
         <div className="logon-container">
             <section className="form">

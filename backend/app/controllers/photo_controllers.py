@@ -1,5 +1,6 @@
 from app.database.connection import get_db
 from flask import jsonify, abort, make_response
+from app.utils import tokenValidation
 
 
 def index():
@@ -50,7 +51,14 @@ def list_by_type_and_gender(type_id, gender_id):
     return response
 
 
-def create(user_id, data):
+def create(token, data):
+    token_info = tokenValidation.token_data(token)
+
+    if token_info is None:
+        abort(400)
+
+    user_id = token_info.get('username')
+
     photo = data['photo']
     photo_type = data['type']
 
@@ -75,7 +83,14 @@ def detail(photo_id):
     return jsonify(photo)
 
 
-def delete(user_id, photo_id):
+def delete(token, photo_id):
+    token_info = tokenValidation.token_data(token)
+
+    if token_info is None:
+        abort(400)
+
+    user_id = token_info.get('username')
+
     cur = get_db().cursor()
 
     cur.execute(f"SELECT * FROM photos WHERE id={photo_id}")
@@ -94,7 +109,14 @@ def delete(user_id, photo_id):
     return jsonify({'result': True})
 
 
-def profile(user_id):
+def profile(token):
+    token_info = tokenValidation.token_data(token)
+
+    if token_info is None:
+        abort(400)
+
+    user_id = token_info.get('username')
+
     cur = get_db().cursor()
     cur.execute(f"SELECT * FROM photos WHERE username='{user_id}'")
     photos = cur.fetchall()
@@ -109,7 +131,14 @@ def profile(user_id):
     return response
 
 
-def rated(user_id):
+def rated(token):
+    token_info = tokenValidation.token_data(token)
+
+    if token_info is None:
+        abort(400)
+
+    user_id = token_info.get('username')
+
     cur = get_db().cursor()
     cur.execute(f"SELECT * FROM photos WHERE id IN (SELECT photo FROM ratings WHERE appraiser='{user_id}')")
     photos = cur.fetchall()
@@ -124,7 +153,14 @@ def rated(user_id):
     return response
 
 
-def rated_by_category(user_id, type_id):
+def rated_by_category(token, type_id):
+    token_info = tokenValidation.token_data(token)
+
+    if token_info is None:
+        abort(400)
+
+    user_id = token_info.get('username')
+
     cur = get_db().cursor()
     cur.execute(f"SELECT * FROM photos WHERE id IN (SELECT photo FROM ratings WHERE appraiser='{user_id}') AND type='{type_id}'")
     photos = cur.fetchall()

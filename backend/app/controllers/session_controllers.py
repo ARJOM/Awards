@@ -1,9 +1,10 @@
+import jwt
 import datetime
+
 from app import app
 from app.database.connection import get_db
 from flask import jsonify, abort
 from app.utils.passwordEncrypt import password_encrypt
-import jwt
 
 
 def session(data):

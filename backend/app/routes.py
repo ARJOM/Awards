@@ -1,8 +1,7 @@
-import jwt
-
 from flask import request, abort
 from functools import wraps
 from app import app
+from app.utils import tokenValidation
 
 from app.controllers import session_controllers as sessions
 from app.controllers import user_controllers as users
@@ -20,9 +19,7 @@ def token_required(f):
         if token is None:
             abort(400)
 
-        try:
-            data = jwt.decode(token, app.config['SECRET_KEY'])
-        except:
+        if not tokenValidation.is_valid(token):
             abort(400)
 
         return f(*args, **kwargs)

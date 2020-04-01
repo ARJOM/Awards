@@ -1,5 +1,6 @@
 from app.database.connection import get_db
 from flask import jsonify, abort
+from app.utils import tokenValidation
 
 
 def index():
@@ -11,7 +12,14 @@ def index():
     return jsonify(ratings)
 
 
-def create(user_id, data):
+def create(token, data):
+    token_info = tokenValidation.token_data(token)
+
+    if token_info is None:
+        abort(400)
+
+    user_id = token_info.get('username')
+
     photo_id = data['photo']
     rating = data['rating']
 

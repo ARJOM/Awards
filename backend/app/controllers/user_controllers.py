@@ -1,5 +1,6 @@
 from app.database.connection import get_db
 from flask import jsonify, abort
+from app.utils import tokenValidation
 from app.utils.passwordEncrypt import password_encrypt
 
 
@@ -35,7 +36,14 @@ def create(data):
     return jsonify({'result': True}), 201
 
 
-def delete(user_id, data):
+def delete(token, data):
+    token_info = tokenValidation.token_data(token)
+
+    if token_info is None:
+        abort(400)
+
+    user_id = token_info.get('username')
+
     password = password_encrypt(data['password'])
 
     cur = get_db().cursor()

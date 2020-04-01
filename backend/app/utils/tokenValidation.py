@@ -15,3 +15,14 @@ def is_valid(token):
     if data is None:
         return False
     return True
+
+
+def is_staff(token):
+    token_info = token_data(token)
+
+    if token_info is not None:
+        user_id = token_info.get('username')
+        if user_id == app.config['ADMIN']:
+            return True
+
+    return False

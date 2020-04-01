@@ -39,17 +39,23 @@ def user_create():
 
 @app.route('/users', methods=['GET', 'DELETE'])
 @token_required
-def users_route():
-    if request.method == 'GET':
-        return users.index()
-    elif request.method == 'DELETE':
-        return users.delete(request.headers['authorization'], request.json)
-    abort(405)
+def users_list():
+    if not tokenValidation.is_staff(request.headers['authorization']):
+        abort(403)
+    return users.index()
+
+
+@app.route('/users', methods=['DELETE'])
+@token_required
+def users_delete():
+    return users.delete(request.headers['authorization'], request.json)
 
 
 @app.route('/genders', methods=['GET', 'POST'])
 @token_required
 def genders_route():
+    if not tokenValidation.is_staff(request.headers['authorization']):
+        abort(403)
     if request.method == 'GET':
         return genders.index()
     elif request.method == 'POST':
@@ -60,6 +66,8 @@ def genders_route():
 @app.route('/types', methods=['GET', 'POST'])
 @token_required
 def types_route():
+    if not tokenValidation.is_staff(request.headers['authorization']):
+        abort(403)
     if request.method == 'GET':
         return types.index()
     elif request.method == 'POST':
@@ -69,6 +77,8 @@ def types_route():
 @app.route('/types/<int:type_id>', methods=['DELETE'])
 @token_required
 def type_delete(type_id):
+    if not tokenValidation.is_staff(request.headers['authorization']):
+        abort(403)
     return types.delete(type_id)
 
 

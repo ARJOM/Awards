@@ -57,7 +57,8 @@ def create(token, data):
     if token_info is None:
         abort(400)
 
-    user_id = token_info.get('username')
+    print(token_info)
+    user_id = token_info.get('user')
 
     photo = data['photo']
     photo_type = data['type']
@@ -89,7 +90,7 @@ def delete(token, photo_id):
     if token_info is None:
         abort(400)
 
-    user_id = token_info.get('username')
+    user_id = token_info.get('user')
 
     cur = get_db().cursor()
 
@@ -115,7 +116,7 @@ def profile(token):
     if token_info is None:
         abort(400)
 
-    user_id = token_info.get('username')
+    user_id = token_info.get('user')
 
     cur = get_db().cursor()
     cur.execute(f"SELECT * FROM photos WHERE username='{user_id}'")
@@ -137,7 +138,7 @@ def rated(token):
     if token_info is None:
         abort(400)
 
-    user_id = token_info.get('username')
+    user_id = token_info.get('user')
 
     cur = get_db().cursor()
     cur.execute(f"SELECT * FROM photos WHERE id IN (SELECT photo FROM ratings WHERE appraiser='{user_id}')")
@@ -159,7 +160,7 @@ def rated_by_category(token, type_id):
     if token_info is None:
         abort(400)
 
-    user_id = token_info.get('username')
+    user_id = token_info.get('user')
 
     cur = get_db().cursor()
     cur.execute(f"SELECT * FROM photos WHERE id IN (SELECT photo FROM ratings WHERE appraiser='{user_id}') AND type='{type_id}'")

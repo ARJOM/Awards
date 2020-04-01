@@ -42,7 +42,7 @@ def delete(token, data):
     if token_info is None:
         abort(400)
 
-    user_id = token_info.get('username')
+    user_id = token_info.get('user')
 
     password = password_encrypt(data['password'])
 

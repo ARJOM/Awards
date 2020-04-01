@@ -18,7 +18,7 @@ def create(token, data):
     if token_info is None:
         abort(400)
 
-    user_id = token_info.get('username')
+    user_id = token_info.get('user')
 
     photo_id = data['photo']
     rating = data['rating']

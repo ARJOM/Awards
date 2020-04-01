@@ -63,15 +63,18 @@ def genders_route():
     abort(405)
 
 
-@app.route('/types', methods=['GET', 'POST'])
+@app.route('/types', methods=['GET'])
+@token_required
+def types_index():
+    return types.index()
+
+
+@app.route('/types', methods=['POST'])
 @token_required
 def types_route():
     if not tokenValidation.is_staff(request.headers['authorization']):
         abort(403)
-    if request.method == 'GET':
-        return types.index()
-    elif request.method == 'POST':
-        return types.create(request.json)
+    return types.create(request.json)
 
 
 @app.route('/types/<int:type_id>', methods=['DELETE'])

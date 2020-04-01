@@ -1,5 +1,7 @@
-from flask import request, abort
+import jwt
 
+from flask import request, abort
+from functools import wraps
 from app import app
 
 from app.controllers import session_controllers as sessions
@@ -10,23 +12,46 @@ from app.controllers import photo_controllers as photos
 from app.controllers import rating_controllers as ratings
 
 
+def token_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        token = request.headers.get('authorization')
+
+        if token is None:
+            abort(400)
+
+        try:
+            data = jwt.decode(token, app.config['SECRET_KEY'])
+        except:
+            abort(400)
+
+        return f(*args, **kwargs)
+
+    return decorated
+
+
 @app.route('/session', methods=['POST'])
 def session():
     return sessions.session(request.json)
 
 
-@app.route('/users', methods=['GET', 'POST', 'DELETE'])
+@app.route('/users', methods=['POST'])
+def user_create():
+    return users.create(request.json)
+
+
+@app.route('/users', methods=['GET', 'DELETE'])
+@token_required
 def users_route():
     if request.method == 'GET':
         return users.index()
-    elif request.method == 'POST':
-        return users.create(request.json)
     elif request.method == 'DELETE':
         return users.delete(request.headers['authorization'], request.json)
     abort(405)
 
 
 @app.route('/genders', methods=['GET', 'POST'])
+@token_required
 def genders_route():
     if request.method == 'GET':
         return genders.index()
@@ -36,6 +61,7 @@ def genders_route():
 
 
 @app.route('/types', methods=['GET', 'POST'])
+@token_required
 def types_route():
     if request.method == 'GET':
         return types.index()
@@ -44,11 +70,13 @@ def types_route():
 
 
 @app.route('/types/<int:type_id>', methods=['DELETE'])
+@token_required
 def type_delete(type_id):
     return types.delete(type_id)
 
 
 @app.route('/photos', methods=['GET', 'POST'])
+@token_required
 def photos_route():
     if request.method == 'GET':
         return photos.index()
@@ -57,31 +85,37 @@ def photos_route():
 
 
 @app.route('/photos/<int:type_id>', methods=['GET'])
+@token_required
 def photo_type(type_id):
     return photos.list_by_type(type_id)
 
 
 @app.route('/photos/<int:type_id>/<int:gender_id>', methods=['GET'])
+@token_required
 def photo_type_gender(type_id, gender_id):
     return photos.list_by_type_and_gender(type_id, gender_id)
 
 
 @app.route('/photos/detail/<int:photo_id>', methods=['GET'])
+@token_required
 def photo_detail(photo_id):
     return photos.detail(photo_id)
 
 
 @app.route('/photos/<int:photo_id>', methods=['DELETE'])
+@token_required
 def photo_delete(photo_id):
     return photos.delete(request.headers['authorization'], photo_id)
 
 
 @app.route('/profile/<string:user_id>', methods=['GET'])
+@token_required
 def profile(user_id):
     return photos.profile(user_id)
 
 
 @app.route('/ratings', methods=['GET', 'POST'])
+@token_required
 def rating():
     if request.method == 'GET':
         return ratings.index()
@@ -90,10 +124,12 @@ def rating():
 
 
 @app.route('/rated', methods=['get'])
+@token_required
 def rated():
     return photos.rated(request.headers['authorization'])
 
 
 @app.route('/rated/<int:type_id>', methods=['GET'])
+@token_required
 def rated_type(type_id):
     return photos.rated_by_category(request.headers['authorization'], type_id)

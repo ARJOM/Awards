@@ -110,13 +110,16 @@ def delete(token, photo_id):
     return jsonify({'result': True})
 
 
-def profile(token):
+def profile(user_id, token):
     token_info = tokenValidation.token_data(token)
 
     if token_info is None:
         abort(400)
 
-    user_id = token_info.get('user')
+    user = token_info.get('user')
+
+    if user_id != user:
+        abort(405)
 
     cur = get_db().cursor()
     cur.execute(f"SELECT * FROM photos WHERE username='{user_id}'")

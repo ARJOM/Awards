@@ -121,7 +121,7 @@ def photo_delete(photo_id):
 @app.route('/profile/<string:user_id>', methods=['GET'])
 @token_required
 def profile(user_id):
-    return photos.profile(user_id)
+    return photos.profile(user_id, request.headers['authorization'])
 
 
 @app.route('/ratings', methods=['GET', 'POST'])

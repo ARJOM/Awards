@@ -6,10 +6,12 @@ import {FiPower} from "react-icons/all";
 export default function Header() {
     const history = useHistory();
 
+    const username = localStorage.getItem('username');
+
     return(
         <header className="container">
             {/*Logo*/}
-            <span>Bem vindo(a), username</span>
+            <span>Bem vindo(a), {username}</span>
 
             <Link className="button" to="/photo">Cadastrar nova foto</Link>
             <button onClick={() => {

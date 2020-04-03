@@ -7,7 +7,7 @@ import Header from "../Header";
 
 export default function Profile() {
     const [photos, setPhotos] = useState([]);
-    // const [total, setTotal] = useState(0);
+    const [total, setTotal] = useState(0);
 
     const token = localStorage.getItem('token');
     const username = localStorage.getItem('username');
@@ -18,8 +18,8 @@ export default function Profile() {
                 Authorization: token
             }
         }).then(response => {
-            setPhotos(response.data);
-            // setTotal(response.headers['x-total-count'])
+            setPhotos(response.data['photos']);
+            setTotal(response.data['total-count'])
         })
     }, [username, token]);
 
@@ -28,7 +28,7 @@ export default function Profile() {
         <div className="profile-container">
             <Header/>
 
-            <h1>Suas fotos</h1>
+            <h1>Suas {total} fotos</h1>
 
             <div className="profile-photos">
                 {photos.map(photo => (

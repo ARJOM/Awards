@@ -12,8 +12,11 @@ def index():
     headers = cur.fetchone()['total']
     cur.close()
 
-    response = make_response(jsonify(photos))
-    response.headers["X-Total-Count"] = headers
+    data = {
+        'photos': photos,
+        'total-count': headers
+    }
+    response = make_response(jsonify(data))
 
     return response
 
@@ -27,8 +30,11 @@ def list_by_type(type_id):
     headers = cur.fetchone()['total']
     cur.close()
 
-    response = make_response(jsonify(photos))
-    response.headers["X-Total-Count"] = headers
+    data = {
+        'photos': photos,
+        'total-count': headers
+    }
+    response = make_response(jsonify(data))
 
     return response
 
@@ -45,8 +51,11 @@ def list_by_type_and_gender(type_id, gender_id):
     headers = cur.fetchone()['total']
     cur.close()
 
-    response = make_response(jsonify(photos))
-    response.headers["X-Total-Count"] = headers
+    data = {
+        'photos': photos,
+        'total-count': headers
+    }
+    response = make_response(jsonify(data))
 
     return response
 
@@ -129,8 +138,11 @@ def profile(user_id, token):
     headers = cur.fetchone()['total']
     cur.close()
 
-    response = make_response(jsonify(photos))
-    response.headers["X-Total-Count"] = headers
+    data = {
+        'photos': photos,
+        'total-count': headers
+    }
+    response = make_response(jsonify(data))
 
     return response
 
@@ -151,8 +163,11 @@ def rated(token):
     headers = cur.fetchone()['total']
     cur.close()
 
-    response = make_response(jsonify(photos))
-    response.headers["X-Total-Count"] = headers
+    data = {
+        'photos': photos,
+        'total-count': headers
+    }
+    response = make_response(jsonify(data))
 
     return response
 
@@ -173,7 +188,10 @@ def rated_by_category(token, type_id):
     headers = cur.fetchone()['total']
     cur.close()
 
-    response = make_response(jsonify(photos))
-    response.headers["X-Total-Count"] = headers
+    data = {
+        'photos': photos,
+        'total-count': headers
+    }
+    response = make_response(jsonify(data))
 
     return response

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import './styles.css'
 import api from "../../services/api";
 
@@ -12,6 +12,8 @@ export default function Profile() {
     const token = localStorage.getItem('token');
     const username = localStorage.getItem('username');
 
+    const history = useHistory();
+
     useEffect(() => {
         api.get('profile/'+username, {
             headers: {
@@ -23,6 +25,9 @@ export default function Profile() {
         })
     }, [username, token]);
 
+    function navigateToDetail(photo) {
+        history.push('/detail/'+photo)
+    }
 
     return (
         <div className="profile-container">
@@ -33,7 +38,7 @@ export default function Profile() {
             <div className="profile-photos">
                 {photos.map(photo => (
                     <div className="photo" key={photo.id}>
-                        <Link to="/detail">
+                        <Link to="#" onClick={() => navigateToDetail(photo.id)}>
                             <img src={photo.photo}  width={337} alt="Foto"/>
                         </Link>
                     </div>

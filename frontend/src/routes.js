@@ -19,7 +19,7 @@ export default function Routes() {
                 <PrivateRoute path="/profile" component={Profile}/>
                 <PrivateRoute path="/home" component={Home}/>
                 <PrivateRoute path="/category" component={Category}/>
-                <PrivateRoute path="/detail" component={Detail} />
+                <PrivateRoute path="/detail/:id" component={Detail} />
                 <PrivateRoute path="/photo" component={Photo} />
             </Switch>
         </BrowserRouter>

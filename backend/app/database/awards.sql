@@ -36,14 +36,12 @@ CREATE TABLE ratings(
 );
 
 CREATE VIEW photo_info AS
-    SELECT p.id, p.username, p.photo, p.type, count(*) as total, avg(r.grade) as grade
-    FROM photos p, ratings r
-    WHERE p.id=r.photo
+    SELECT p.id, p.username, p.photo, p.type, count(r.grade) as total, avg(r.grade) as grade
+    FROM photos p left join ratings r ON p.id = r.photo
     GROUP BY p.id, p.username, p.photo, p.type;
 
 CREATE VIEW photo_most AS
     SELECT p.id, r.grade as evaluation, count(r.grade) as qt_evaluation
-    FROM photos p, ratings r
-    WHERE p.id=r.photo
+    FROM photos p left join ratings r ON p.id = r.photo
     GROUP BY p.id, r.grade
     ORDER BY count(r.grade) DESC

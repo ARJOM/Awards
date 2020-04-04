@@ -1,46 +1,50 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import './styles.css'
-import {Link} from "react-router-dom";
-import {FiPower, FiTrash2} from "react-icons/all";
-import smile from "../../assets/sorriso.jpeg";
+import {useParams} from 'react-router-dom'
+import {FiTrash2} from "react-icons/all";
+import Header from "../Header";
+import api from "../../services/api";
 
 export default function Detail() {
+    const [photo, setPhoto] = useState({});
+    const { id } = useParams();
+    const token = localStorage.getItem('token');
+
+    useEffect(() => {
+        api.get('photos/detail/'+id, {
+            headers: {
+                Authorization: token
+            }
+        }).then(response => setPhoto(response.data))
+    }, []);
+
     return(
         <div className="detail-container">
-            <header>
-                {/*Logo*/}
-                <span>Bem vindo(a), username</span>
-
-                <Link className="button" to="/photo">Cadastrar nova foto</Link>
-                <button onClick={() => {}} type="button">
-                    <FiPower size={18} color="#E02041"/>
-                </button>
-            </header>
-
-            <h1>Username</h1>
+            <Header/>
+            <h1>{photo.username}</h1>
 
             <div className="detail-photos">
                 <div className="photo">
-                    <img src={smile}  width={800} alt="Foto"/>
+                    <img src={photo.photo}  width={800} alt="Foto"/>
                 </div>
                 <div className="info">
                     <div>
                         <p>Nota Geral</p>
                         <div className="rate">
-                            4
+                            {String(photo.grade)}
                         </div>
                     </div>
                     <div>
                         <p>Total de Votos</p>
                         <div className="rate">
-                            45
+                            {photo.total}
                         </div>
                     </div>
 
                     <div>
                         <p>Nota mais recebida</p>
                         <div className="rate">
-                            4
+                            {String(photo.evaluation)}
                         </div>
                     </div>
                     <button type="button" onClick={() => {}}>

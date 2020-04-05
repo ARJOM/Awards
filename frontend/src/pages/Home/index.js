@@ -1,11 +1,23 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import './styles.css'
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import Header from '../Header'
-import smile from "../../assets/sorriso.jpeg"
+import api from "../../services/api";
 
 
 export default function Home() {
+    const [categorys, setCategorys] = useState([]);
+
+    const token = localStorage.getItem('token');
+
+    useEffect(() => {
+        api.get('types', {
+            headers: {
+                Authorization: token
+            }
+        }).then(response => setCategorys(response.data))
+    }, [token]);
+
     return(
         <div className="home-container">
             <Header/>
@@ -13,24 +25,14 @@ export default function Home() {
             <h1>Categorias</h1>
 
             <ul>
-                <li>
-                    <Link to="/category">
-                        <strong>Sorriso</strong>
-                    </Link>
-                    <img src={smile} width={500} alt="category name"/>
-                </li>
-                <li>
-                    <Link to="/category">
-                        <strong>Sorriso</strong>
-                    </Link>
-                    <img src={smile} width={500} alt="category name"/>
-                </li>
-                <li>
-                    <Link to="/category">
-                        <strong>Sorriso</strong>
-                    </Link>
-                    <img src={smile} width={500} alt="category name"/>
-                </li>
+                {categorys.map(category => (
+                    <li key={category.id}>
+                        <Link to={"category/"+category.id}>
+                            <strong>{category.name}</strong>
+                        </Link>
+                        <img src={category.photo} width={500} alt={"foto mais bem avaliada de "+category.name}/>
+                    </li>
+                ))}
             </ul>
 
         </div>

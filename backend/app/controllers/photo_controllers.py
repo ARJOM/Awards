@@ -66,7 +66,6 @@ def create(token, data):
     if token_info is None:
         abort(400)
 
-    print(token_info)
     user_id = token_info.get('user')
 
     photo = data['photo']

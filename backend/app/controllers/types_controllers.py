@@ -5,10 +5,18 @@ from flask import jsonify, abort
 def index():
     cur = get_db().cursor()
     cur.execute("SELECT * FROM types")
-    genders = cur.fetchall()
+    types = cur.fetchall()
+
+    data = []
+    for identifier in types:
+        ty = identifier['id']
+        cur.execute(f"SELECT photo FROM photo_info pi NATURAL JOIN photo_most pm WHERE type={ty}")
+        identifier['photo'] = cur.fetchone()['photo']
+        data.append(identifier)
+
     cur.close()
 
-    return jsonify(genders)
+    return jsonify(data)
 
 
 def create(data):

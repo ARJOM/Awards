@@ -6,17 +6,9 @@ def index():
     cur = get_db().cursor()
     cur.execute("SELECT * FROM types")
     types = cur.fetchall()
-
-    data = []
-    for identifier in types:
-        ty = identifier['id']
-        cur.execute(f"SELECT photo FROM photo_info pi NATURAL JOIN photo_most pm WHERE type={ty}")
-        identifier['photo'] = cur.fetchone()['photo']
-        data.append(identifier)
-
     cur.close()
 
-    return jsonify(data)
+    return jsonify(types)
 
 
 def create(data):
@@ -47,3 +39,20 @@ def delete(type_id):
     cur.close()
 
     return jsonify({'result': True})
+
+
+def list_photo():
+    cur = get_db().cursor()
+    cur.execute("SELECT * FROM types")
+    types = cur.fetchall()
+
+    data = []
+    for identifier in types:
+        ty = identifier['id']
+        cur.execute(f"SELECT photo FROM photo_info pi NATURAL JOIN photo_most pm WHERE type={ty}")
+        identifier['photo'] = cur.fetchone()['photo']
+        data.append(identifier)
+
+    cur.close()
+
+    return jsonify(data)

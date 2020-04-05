@@ -69,6 +69,12 @@ def types_index():
     return types.index()
 
 
+@app.route('/home', methods=['GET'])
+@token_required
+def types_home():
+    return types.list_photo()
+
+
 @app.route('/types', methods=['POST'])
 @token_required
 def types_route():

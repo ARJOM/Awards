@@ -26,13 +26,17 @@ def list_by_type(type_id):
     cur.execute(f"SELECT * FROM photos WHERE type={type_id}")
     photos = cur.fetchall()
 
+    cur.execute(f"SELECT name FROM types WHERE id={type_id}")
+    category = cur.fetchone()['name']
+
     cur.execute(f"SELECT count(*) as total FROM photos WHERE type={type_id}")
     headers = cur.fetchone()['total']
     cur.close()
 
     data = {
         'photos': photos,
-        'total-count': headers
+        'total-count': headers,
+        'category': category
     }
     response = make_response(jsonify(data))
 

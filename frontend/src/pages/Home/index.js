@@ -11,7 +11,7 @@ export default function Home() {
     const token = localStorage.getItem('token');
 
     useEffect(() => {
-        api.get('types', {
+        api.get('home', {
             headers: {
                 Authorization: token
             }

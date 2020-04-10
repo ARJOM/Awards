@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import './styles.css'
-import {useParams} from 'react-router-dom'
+import {useHistory, useParams} from 'react-router-dom'
 import {FiTrash2} from "react-icons/all";
 import Header from "../Header";
 import api from "../../services/api";
@@ -8,6 +8,9 @@ import api from "../../services/api";
 export default function Detail() {
     const [photo, setPhoto] = useState({});
     const { id } = useParams();
+
+    const history = useHistory();
+
     const token = localStorage.getItem('token');
 
     useEffect(() => {
@@ -15,7 +18,15 @@ export default function Detail() {
             headers: {
                 Authorization: token
             }
-        }).then(response => setPhoto(response.data))
+        }).then(response => setPhoto(response.data)
+        ).catch(error => {
+            if (error.response.status===401){
+                alert("Sua sessão expirou. Faça login novamente.");
+                localStorage.removeItem('token');
+                localStorage.removeItem('username');
+                history.push('/')
+            }
+        });
     }, []);
 
     return(

@@ -17,9 +17,15 @@ export default function Photo() {
             headers: {
                 Authorization: token
             }
-        })
-            .then(response => setTypes(response.data)
-        )
+        }).then(response => setTypes(response.data)
+        ).catch(error => {
+            if (error.response.status===401){
+                alert("Sua sessão expirou. Faça login novamente.");
+                localStorage.removeItem('token');
+                localStorage.removeItem('username');
+                history.push('/')
+            }
+        });
     }, [token]);
 
 
@@ -47,6 +53,13 @@ export default function Photo() {
             await api.post('photos', data, {
                 headers: {
                     Authorization: token
+                }
+            }).catch(error => {
+                if (error.response.status===401){
+                    alert("Sua sessão expirou. Faça login novamente.");
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('username');
+                    history.push('/')
                 }
             });
             alert("Foto publicada");

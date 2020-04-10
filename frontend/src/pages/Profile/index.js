@@ -22,7 +22,15 @@ export default function Profile() {
         }).then(response => {
             setPhotos(response.data['photos']);
             setTotal(response.data['total-count'])
-        })
+        }).catch(error => {
+            if (error.response.status===401){
+                alert("Sua sessão expirou. Faça login novamente.");
+                localStorage.removeItem('token');
+                localStorage.removeItem('username');
+                history.push('/')
+            }
+        });
+
     }, [username, token]);
 
     function navigateToDetail(photo) {

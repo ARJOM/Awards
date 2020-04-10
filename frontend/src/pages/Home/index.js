@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from "react";
 import './styles.css'
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import Header from '../Header'
 import api from "../../services/api";
 
 
 export default function Home() {
     const [categorys, setCategorys] = useState([]);
+
+    const history = useHistory();
 
     const token = localStorage.getItem('token');
 
@@ -15,7 +17,15 @@ export default function Home() {
             headers: {
                 Authorization: token
             }
-        }).then(response => setCategorys(response.data))
+        }).then(response => setCategorys(response.data)
+        ).catch(error => {
+            if (error.response.status===401){
+                alert("Sua sessão expirou. Faça login novamente.");
+                localStorage.removeItem('token');
+                localStorage.removeItem('username');
+                history.push('/')
+            }
+        });
     }, [token]);
 
     return(

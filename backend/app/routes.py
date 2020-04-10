@@ -20,7 +20,7 @@ def token_required(f):
             abort(400)
 
         if not tokenValidation.is_valid(token):
-            abort(400)
+            abort(401)
 
         return f(*args, **kwargs)
 

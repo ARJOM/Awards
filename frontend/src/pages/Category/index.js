@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Link, useParams} from "react-router-dom";
+import {Link, useHistory, useParams} from "react-router-dom";
 import './styles.css';
 import Rate from "../Rate";
 import Header from "../Header";
@@ -12,6 +12,8 @@ export default function Category() {
 
     const { id } = useParams();
 
+    const history = useHistory();
+
     const token = localStorage.getItem('token');
 
     useEffect(() => {
@@ -23,7 +25,14 @@ export default function Category() {
             setPhotos(response.data['photos']);
             setTotal(response.data['total-count']);
             setCategory(response.data['category']);
-        })
+        }).catch(error => {
+            if (error.response.status===401){
+                alert("Sua sessão expirou. Faça login novamente.");
+                localStorage.removeItem('token');
+                localStorage.removeItem('username');
+                history.push('/')
+            }
+        });
     }, [token]);
 
     return(

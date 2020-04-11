@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import './styles.css'
 import {useHistory, useParams} from 'react-router-dom'
 import {FiTrash2} from "react-icons/all";
-import Header from "../Header";
+import Header from "../../components/Header";
 import api from "../../services/api";
 
 export default function Detail() {

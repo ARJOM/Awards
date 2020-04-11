@@ -3,7 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import './styles.css'
 import api from "../../services/api";
 
-import Header from "../Header";
+import Header from "../../components/Header";
 
 export default function Profile() {
     const [photos, setPhotos] = useState([]);

@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {Link, useHistory, useParams} from "react-router-dom";
 import './styles.css';
-import Rate from "../Rate";
-import Header from "../Header";
+import Rate from "../../components/Rate";
+import Header from "../../components/Header";
 import api from "../../services/api";
 
 export default function Category() {

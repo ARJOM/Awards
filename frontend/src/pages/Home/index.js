@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import './styles.css'
 import {Link, useHistory} from 'react-router-dom';
-import Header from '../Header'
+import Header from '../../components/Header'
 import api from "../../services/api";
 
 

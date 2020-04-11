@@ -43,12 +43,12 @@ export default function Category() {
 
             <ul>
                 {photos.map(photo => (
-                    <li>
+                    <li key={photo.id}>
                         <Link to={"/detail/"+photo.id}>
                             <strong>{photo.username}</strong>
                         </Link>
                         <img src={photo.photo} width={900} alt={"Foto de "+photo.username}/>
-                        <Rate/>
+                        <Rate photo={photo.id}/>
                     </li>
                 ))}
             </ul>

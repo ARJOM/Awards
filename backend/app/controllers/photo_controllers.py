@@ -21,15 +21,25 @@ def index():
     return response
 
 
-def list_by_type(type_id):
+def list_by_type(token, type_id):
+    token_info = tokenValidation.token_data(token)
+
+    if token_info is None:
+        abort(404)
+
+    user_id = token_info.get('user')
+
     cur = get_db().cursor()
-    cur.execute(f"SELECT * FROM photos WHERE type={type_id}")
+    cur.execute(f"SELECT * FROM photos WHERE type={type_id} "
+                f"AND id NOT IN (SELECT photo FROM ratings WHERE appraiser='{user_id}')")
     photos = cur.fetchall()
 
-    cur.execute(f"SELECT name FROM types WHERE id={type_id}")
+    cur.execute(f"SELECT name FROM types WHERE id={type_id} "
+                f"AND id NOT IN (SELECT photo FROM ratings WHERE appraiser='{user_id}')")
     category = cur.fetchone()['name']
 
-    cur.execute(f"SELECT count(*) as total FROM photos WHERE type={type_id}")
+    cur.execute(f"SELECT count(*) as total FROM photos WHERE type={type_id} "
+                f"AND id NOT IN (SELECT photo FROM ratings WHERE appraiser='{user_id}')")
     headers = cur.fetchone()['total']
     cur.close()
 

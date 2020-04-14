@@ -103,7 +103,7 @@ def photos_route():
 @app.route('/photos/<int:type_id>', methods=['GET'])
 @token_required
 def photo_type(type_id):
-    return photos.list_by_type(type_id)
+    return photos.list_by_type(request.headers['authorization'], type_id)
 
 
 @app.route('/photos/<int:type_id>/<int:gender_id>', methods=['GET'])

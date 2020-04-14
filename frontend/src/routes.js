@@ -9,6 +9,7 @@ import Category from "./pages/Category";
 import Detail from "./pages/Detail";
 import Photo from "./pages/Photo";
 import PrivateRoute from "./utils/PrivateRoute";
+import Rated from "./pages/Rated";
 
 export default function Routes() {
     return(
@@ -21,6 +22,7 @@ export default function Routes() {
                 <PrivateRoute path="/category/:id" component={Category}/>
                 <PrivateRoute path="/detail/:id" component={Detail} />
                 <PrivateRoute path="/photo" component={Photo} />
+                <PrivateRoute path="/rated" component={Rated} />
             </Switch>
         </BrowserRouter>
     )
